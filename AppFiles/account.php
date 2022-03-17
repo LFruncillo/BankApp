@@ -37,8 +37,6 @@
                     else {
                         echo "no results";
                     }
-
-                    $conn-> close();
                 ?>
                 <div id="balanceactions" class="balance_actions" style="display: inline-block;">
                 <form action="accactions.php" method="post">
@@ -50,6 +48,7 @@
                 <div id="payment" class="acc_pay" style="display: inline-block; display: none;">
                     <input id="payuser" class="pay_user" type="text" value="" placeholder="Name..." name="puser">
                     <input id="payamount" class="pay_amount" type="number" value="" placeholder="Amount..." name="pamount">
+                    <input id="paynote" class="pay_note" type="text" value="" placeholder="Note..." name="pnote">
                     <input class="btn btn-dark" type="submit" name="pay" value="pay">
                 </div>
                 </form>
@@ -57,6 +56,25 @@
                 <input id="showpaybtn" class="btn btn-dark" type="submit" name="showpay" value="PAY" onclick="show('payment')">
                 <a href="account_settings.php" style="text-align: center;">Settings</a>
                 <a href="logout.php" style="text-align: center;">Log out</a>
+            </div>
+            <div id="trans" class="transfers">
+            <?php
+                $name = $_SESSION['name'];
+
+                $query = "SELECT Name, TransferAmt, CurrentBal, NewBal FROM $name";
+                $result = mysqli_query($conn, $query);
+
+                if ($result->num_rows > 0){
+                    while ($row = $result->fetch_assoc()){
+                        echo "Recipient: " . $row["Name"] . " | Amount: " . $row["TransferAmt"] . " | Current Balance: " . $row["CurrentBal"] . " | New Balance: " . $row["NewBal"] . "    /////////////    ";
+                    }
+                }
+                else {
+                    echo "No results";
+                }
+
+                $conn-> close();
+            ?>
             </div>
     </body>
     <script src="bankapp.js"></script>

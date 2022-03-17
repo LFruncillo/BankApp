@@ -44,7 +44,7 @@
                 <form action="accactions.php" method="post">
                     <input id="changename" class="change_name" type="text" value="" placeholder="New name..." name="newname">
                     <input class="btn btn-dark" type="submit" name="changename" value="Update name">
-                    <input id="changepassword" class="change_password" type="text" value="" placeholder="New password..." name="newpassword">
+                    <input id="changepassword" class="change_password" type="password" value="" placeholder="New password..." name="newpassword">
                     <input class="btn btn-dark" type="submit" name="changepassword" value="Update Password">
                 </form>
                 </div>

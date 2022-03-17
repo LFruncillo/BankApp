@@ -11,15 +11,17 @@ if(isset($_POST['register']))
     $type = 'Standard';
     
     $sql = "INSERT INTO bank_accounts (name,password,balance,type)
-    VALUES ('$name','$password','$balance','$type')";
+    VALUES ('$name','$password','$balance','$type');";
+	$sql .= "CREATE TABLE $name (Name VARCHAR(48) NOT NULL, TransferAmt FLOAT(48) NOT NULL, CurrentBal FLOAT(48) NOT NULL, NewBal FLOAT(48) NOT NULL, TransferNote VARCHAR(124) NOT NULL)";
 
-    if (mysqli_query($conn, $sql)) {
+    if (mysqli_multi_query($conn, $sql)) {
         echo "Account created";
         header("Location: home.php"); /* Redirect browser */
         exit();
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
+
     mysqli_close($conn);
 }
 
@@ -104,6 +106,7 @@ if(isset($_POST['pay']))
 {
 	$balance = mysqli_real_escape_string($conn, $_POST["pamount"]);
 	$recipient = mysqli_real_escape_string($conn, $_POST["puser"]);
+	$note = mysqli_real_escape_string($conn, $_POST["pnote"]);
 	$name = $_SESSION['name'];
 
 	$query = "SELECT * FROM bank_accounts WHERE name = '$name'";
@@ -123,6 +126,9 @@ if(isset($_POST['pay']))
 				$newrecbalquery = "UPDATE bank_accounts SET balance='$newrecbal' WHERE name='$recipient'";
 				$result = mysqli_query($conn, $newbalquery);
 				$result = mysqli_query($conn, $newrecbalquery);
+
+				$transferquery = "INSERT INTO $name(name,transferamt,currentbal,newbal,transfernote) VALUES ('$recipient','$pvalue','$currentbalance','$newbal', '$note')";
+				$result = mysqli_query($conn, $transferquery);
 				header("location:account.php");
 				}
 			}

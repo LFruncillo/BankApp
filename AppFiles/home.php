@@ -15,7 +15,8 @@
         <div id="register" class="register_container" style="display: inline-block;">
             <form action="accactions.php" method="post">
                 <input id="regname" class="reg_name" type="text" value="" placeholder="Name..." name="regaccname">
-                <input id="regpassword" class="reg_password" type="text" value="" placeholder="Password..." name="regaccpass">
+                <input id="regpassword" class="reg_password" type="password" value="" placeholder="Password..." name="regaccpass">
+                <input type="checkbox" onclick="showRegPass()">Show Password
                 <input class="btn btn-dark" type="submit" name="register" value="register">
             </form> 
         </div>
@@ -23,11 +24,11 @@
         <div id="login" class="login_container" style="display: inline-block;">
             <form action="accactions.php" method="post">
                 <input id="logname" class="log_name" type="text" value="" placeholder="Name..." name="logaccname">
-                <input id="logpassword" class="log_password" type="text" value="" placeholder="Password..." name="logaccpass">
+                <input id="logpassword" class="log_password" type="password" value="" placeholder="Password..." name="logaccpass">
+                <input type="checkbox" onclick="showLogPass()">Show Password
                 <input class="btn btn-dark" type="submit" name="login" value="login">
             </form> 
         </div>
-        <input type="checkbox" onclick="showPass()">Show Password
     </div>
     </body>
 </html>
